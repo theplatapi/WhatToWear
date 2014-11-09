@@ -1,5 +1,20 @@
 if (Meteor.isClient) {
-  //.scroll( handler )
+  var last = 0;
+  var currentRotation = 0;
+
+  Template.timeSelector.rendered = function() {
+    //set up event listener
+    $('#scrollBox').scroll(function() {
+      var newScroll = $('#scrollBox').scrollTop();
+      var scrollChange = newScroll - last;
+
+      last = newScroll;
+      currentRotation += scrollChange;
+      $('#timeSelector').css('transform', 'rotate(' + currentRotation + 'deg)');
+    });
+
+    //TODO: Set to time of day currently
+  }
 }
 
 if (Meteor.isServer) {
@@ -7,9 +22,3 @@ if (Meteor.isServer) {
     // code to run on server at startup
   });
 }
-
-//Set the timer wind to the time of day. Don't allow significant scrollback. Just wind the wheel with resistance.\
-
-//                 night
-//morning                             evening
-//               afternoon

@@ -21,6 +21,23 @@ html,body { height:100%; }
   overflow: hidden;
 }
 
+#scrollBox {
+  overflow: auto;
+  position: absolute;
+  width: 20%;
+  height: 100%;
+  z-index: 1;
+}
+
+#scrollBox::-webkit-scrollbar {
+  display: none;
+}
+
+#scrollContent {
+  width: 100%;
+  height: 300%;
+}
+
 #timeSelector {
   content: url("/timeSelector.png");
   height: 100%;
