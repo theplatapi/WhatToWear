@@ -1,0 +1,28 @@
+<head>
+  <title>What To Wear</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+
+<body>
+  {{> settings}}
+  {{> avatar}}
+  {{> timeSelector}}
+</body>
+
+<template name="settings">
+  <div id="pane1" class="pane">
+    <h2>Settings</h2>
+  </div>
+</template>
+
+<template name="avatar">
+  <div id="pane2" class="pane">
+    <h2>Avatar</h2>
+  </div>
+</template>
+
+<template name="timeSelector">
+  <div id="pane3" class="pane timeSelectorContainer">
+    <div id="timeSelector"></div>
+  </div>
+</template>

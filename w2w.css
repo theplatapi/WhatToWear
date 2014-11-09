@@ -1,0 +1,27 @@
+html,body { height:100%; }
+
+.pane {
+  float: left;
+  height: 100%;
+}
+
+#pane1 {
+  width: 20%;
+}
+
+#pane2 {
+  width: 60%;
+}
+
+#pane3 {
+  width: 20%;
+}
+
+.timeSelectorContainer {
+  overflow: hidden;
+}
+
+#timeSelector {
+  content: url("/timeSelector.png");
+  height: 100%;
+}
