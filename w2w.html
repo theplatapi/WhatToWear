@@ -4,19 +4,28 @@
 </head>
 
 <body>
+<div class="container-fluid pane">
   {{> profiles}}
   {{> avatar}}
   {{> timeSelector}}
+</div>
 </body>
 
 <template name="profiles">
-  <div id="pane1" class="pane">
+  <div class="col-md-2 col-xs-2 pane">
     <h2>Profiles</h2>
+    <p>{{getTime}}</p>
+    <div class="sidebar-offcanvas" id="sidebar" role="navigation">
+      <div class="list-group">
+        <a href="#" class="list-group-item active">Business</a>
+        <a href="#" class="list-group-item">Programmer</a>
+      </div>
+    </div>
   </div>
 </template>
 
 <template name="avatar">
-  <div id="pane2" class="pane">
+  <div class="col-md-8 col-xs-8 pane">
     <div id="avatar">
       <!--Shirt-->
       <div class="clothes" style="background: url('{{getShirt}}') no-repeat; background-size: contain"></div>
@@ -27,7 +36,7 @@
 </template>
 
 <template name="timeSelector">
-  <div id="pane3" class="pane timeSelectorContainer">
+  <div class="col-md-2 col-xs-2 pane timeSelectorContainer">
     <div id="scrollBox">
       <div id="scrollContent"></div>
     </div>
