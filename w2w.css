@@ -1,4 +1,13 @@
-html,body { height:100%; }
+html {
+  height:100%;
+}
+
+
+body {
+  height:100%;
+  background: url("/city-skyline.svg") fixed no-repeat;
+  background-size: cover;
+}
 
 .pane {
   float: left;
@@ -15,6 +24,20 @@ html,body { height:100%; }
 
 #pane3 {
   width: 20%;
+}
+
+#avatar {
+  background: url("/main_avatar.png") no-repeat;
+  width: 205px;
+  height: 100%;
+  background-size: contain;
+  margin: 0 auto;
+}
+
+.clothes {
+  position: absolute;
+  height: 100%;
+  width: 205px;
 }
 
 .timeSelectorContainer {
