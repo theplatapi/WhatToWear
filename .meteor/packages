@@ -8,4 +8,7 @@ autopublish
 insecure
 ian:bootstrap-3
 reactive-var
+mdg:geolocation
+http
+underscore
 
