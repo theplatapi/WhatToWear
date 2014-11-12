@@ -1,3 +1,4 @@
+//TODO: Move key into settings file
 var apiKey = '9eba2a821655bbf395eb34efb4fa72cc';
 
 Meteor.methods({
@@ -11,13 +12,13 @@ Meteor.methods({
       var current = forecast.list[i];
       var slope = (current.main.temp - previous.main.temp) / (current.dt - previous.dt);
 
-      //index means up to that time, so dt[i-1] to dt[i]
+      //index is up to that time, so dt[i-1] to dt[i]
       forecasts.push({
         date: current.dt,
         slope: slope,
         yIntercept: current.main.temp - slope * current.dt
       });
     }
-    Weather.insert({city: forecast.city.name, forecasts: forecasts});
+    Weather.upsert({city: forecast.city.name}, {$set: {downloaded: new Date(), forecasts: forecasts}});
   }
 });
