@@ -1,6 +1,5 @@
 var last = 0;
 var currentRotation = 0;
-var position;
 var time = new ReactiveVar(moment());
 var kelvinToFarenheit = function(kelvin) {
   return Math.round((kelvin - 273.15) * 9 / 5 + 32);
@@ -17,13 +16,12 @@ var setScrollHeight = function(self, radius) {
 
   self.$('#scrollContent').css('height', newHeight + 'px');
 };
-Session.setDefault('position', null);
 Session.setDefault('city', null);
 Session.setDefault('temperature', null);
 
 //get city here
 Tracker.autorun(function() {
-  position = Geolocation.currentLocation();
+  var position = Geolocation.currentLocation();
 
   if (position) {
     HTTP.get('http://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + ','
@@ -49,7 +47,6 @@ Tracker.autorun(function() {
 
 //get forecast here
 Tracker.autorun(function() {
-  //query mongodb. If nothing, then ask server to update the db
   var forecast;
   var unixTime = moment(time.get()).utc().unix();
 
@@ -57,25 +54,22 @@ Tracker.autorun(function() {
     forecast = Weather.findOne({city: Session.get('city')});
 
     //reject if the weather is 12 hours old
-    if (forecast && moment(forecast.downloaded).add(12, 'hours').isBefore(moment())) {
-      Meteor.call('getWeather', position.coords.latitude, position.coords.longitude);
+    if (!forecast || moment(forecast.downloaded).add(12, 'hours').isBefore(moment())) {
+      Meteor.call('getWeather', Session.get('city'));
     }
     else {
-      var line = forecast && forecast.forecasts.filter(function(element) {
-            return element.date > unixTime;
-          }).reduce(function(prev, curr) {
-            if (prev.date < curr.date) {
-              return prev;
-            }
-            return curr;
-          });
+      var line = forecast.forecasts.filter(function(element) {
+        return element.date > unixTime;
+      }).reduce(function(prev, curr) {
+        if (prev.date < curr.date) {
+          return prev;
+        }
+        return curr;
+      });
 
       if (line) {
         //linearly interpolate the current temperature
         Session.set('temperature', kelvinToFarenheit(line.slope * unixTime + line.yIntercept));
-      }
-      else {
-        console.log("couldn't get weather");
       }
     }
   }
@@ -131,6 +125,12 @@ Template.profiles.helpers({
     if (!Session.equals('city', null)) {
       return Session.get('city');
     }
+  }
+});
+
+Template.profiles.events({
+  'click .list-group-item': function() {
+    console.log("hi!");
   }
 });
 
