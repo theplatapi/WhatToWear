@@ -3,7 +3,7 @@ var currentRotation = 0;
 var position;
 var time = new ReactiveVar(moment());
 var kelvinToFarenheit = function(kelvin) {
-  return Math.round((kelvin - 273.15) * 9/5 + 32);
+  return Math.round((kelvin - 273.15) * 9 / 5 + 32);
 };
 var setScrollHeight = function(self, radius) {
   //So we can at least scroll a bit.
@@ -56,19 +56,27 @@ Tracker.autorun(function() {
   if (!Session.equals('city', null)) {
     forecast = Weather.findOne({city: Session.get('city')});
 
-    //TODO: Replace sort with function to find the lowest value. O(nlogn) to O(n)
-    var line = forecast && forecast.forecasts.filter(function(element) {
-          return element.date > unixTime;
-        }).sort(function(a, b) {
-          return a.date - b.date;
-        });
-
-    if (line && line[0]) {
-      //linearly interpolate the current temperature
-      Session.set('temperature', kelvinToFarenheit(line[0].slope * unixTime + line[0].yIntercept));
-    }
-    else if (position) {
+    //reject if the weather is 12 hours old
+    if (forecast && moment(forecast.downloaded).add(12, 'hours').isBefore(moment())) {
       Meteor.call('getWeather', position.coords.latitude, position.coords.longitude);
+    }
+    else {
+      var line = forecast && forecast.forecasts.filter(function(element) {
+            return element.date > unixTime;
+          }).reduce(function(prev, curr) {
+            if (prev.date < curr.date) {
+              return prev;
+            }
+            return curr;
+          });
+
+      if (line) {
+        //linearly interpolate the current temperature
+        Session.set('temperature', kelvinToFarenheit(line.slope * unixTime + line.yIntercept));
+      }
+      else {
+        console.log("couldn't get weather");
+      }
     }
   }
 });
@@ -97,8 +105,8 @@ Template.timeSelector.rendered = function() {
     //calculate degrees to move time dial
     var newScroll = self.$('#scrollBox').scrollTop();
     var scrollChange = newScroll - last;
-    var radians = new Big(Math.atan2(1, radius) * scrollChange);
-    var newRotation = radians.times(new Big(180 / Math.PI));
+    var radians = new Big(Math.atan2(1, radius)).times(scrollChange);
+    var newRotation = radians.times(new Big(180).div(Math.PI));
 
     last = newScroll;
     currentRotation = currentRotation.plus(newRotation);
