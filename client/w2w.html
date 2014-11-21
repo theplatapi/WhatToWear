@@ -4,28 +4,34 @@
 </head>
 
 <body>
-<div class="container-fluid pane">
-  {{> profiles}}
-  {{> avatar}}
-  {{> timeSelector}}
-</div>
+ {{> main}}
 </body>
+
+<template name="main">
+  <div class="container-fluid pane">
+    <!--Sets either the loading template or the profiles template, depending on if the data is ready-->
+    {{> Template.dynamic template=getTemplate}}
+    {{> avatar}}
+    {{> timeSelector}}
+  </div>
+</template>
 
 <template name="profiles">
   <div class="col-md-2 col-xs-2 pane">
     {{getTime}}<br>
     {{getWeather}}<br>
-    {{getCity}}
+    {{getCity}}<br>
+    {{getRain}} mm rain
     <!--<div class="sidebar-offcanvas" id="sidebar" role="navigation">-->
-      <!--<div class="list-group">-->
-        <!--<a href="#" class="list-group-item active">Business</a>-->
-        <!--<a href="#" class="list-group-item">Programmer</a>-->
-        <!--<a href="#" class="list-group-item">Clubbing</a>-->
-        <!--<a href="#" class="list-group-item">Chiwawa</a>-->
-        <!--<a href="#" class="list-group-item">Formal</a>-->
-        <!--<a href="#" class="list-group-item">Exercise</a>-->
-        <!--<a href="#" class="list-group-item">Hipster</a>-->
-      <!--</div>-->
+    <!--<div class="list-group">-->
+    <!--<a href="#" class="list-group-item active">Business</a>-->
+    <!--<a href="#" class="list-group-item">Programmer</a>-->
+    <!--<a href="#" class="list-group-item">Clubbing</a>-->
+    <!--<a href="#" class="list-group-item">Chiwawa</a>-->
+    <!--<a href="#" class="list-group-item">Formal</a>-->
+    <!--<a href="#" class="list-group-item">Exercise</a>-->
+    <!--<a href="#" class="list-group-item">Hipster</a>-->
+    <!--</div>-->
     <!--</div>-->
   </div>
 </template>
@@ -47,5 +53,11 @@
       <div id="scrollContent"></div>
     </div>
     <div id="timeSelector"></div>
+  </div>
+</template>
+
+<template name="loading">
+  <div class="col-md-2 col-xs-2">
+    <i class="fa fa-spinner fa-spin fa-5x"></i>
   </div>
 </template>
