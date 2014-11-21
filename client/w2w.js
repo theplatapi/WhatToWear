@@ -18,6 +18,7 @@ var setScrollHeight = function(self, radius) {
 };
 Session.setDefault('city', null);
 Session.setDefault('temperature', null);
+Session.setDefault('rain', null);
 
 //get city here
 Tracker.autorun(function() {
@@ -70,6 +71,7 @@ Tracker.autorun(function() {
       if (line) {
         //linearly interpolate the current temperature
         Session.set('temperature', kelvinToFarenheit(line.slope * unixTime + line.yIntercept));
+        Session.set('rain', line.rain);
       }
     }
   }
@@ -119,11 +121,20 @@ Template.profiles.helpers({
     if (!Session.equals('temperature', null)) {
       return Session.get('temperature') + '\xBAF';
     }
+    else {
+      //show a spinner
+    }
   },
 
   getCity: function() {
     if (!Session.equals('city', null)) {
       return Session.get('city');
+    }
+  },
+
+  getRain: function() {
+    if (!Session.equals('rain', null)) {
+      return Session.get('rain');
     }
   }
 });
@@ -143,6 +154,12 @@ Template.avatar.helpers({
   getPants: function() {
     //return pants based on time and profile
     return "/clothes_bottom_pants.png";
+  }
+});
+
+Template.main.helpers({
+  getTemplate: function() {
+    return Session.equals('temperature', null) ? 'loading' : 'profiles';
   }
 });
 
