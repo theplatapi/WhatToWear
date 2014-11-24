@@ -121,9 +121,6 @@ Template.profiles.helpers({
     if (!Session.equals('temperature', null)) {
       return Session.get('temperature') + '\xBAF';
     }
-    else {
-      //show a spinner
-    }
   },
 
   getCity: function() {
