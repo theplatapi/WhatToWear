@@ -122,6 +122,10 @@ Template.timeSelector.rendered = function() {
   });
 };
 
+Template.profiles.rendered = function() {
+  //$('#profile-sidebar').offcanvas({'toggle': true, canvas: true});
+};
+
 Template.profiles.helpers({
   getTime: function() {
     return time.get().calendar();
@@ -147,6 +151,9 @@ Template.profiles.helpers({
 });
 
 Template.profiles.events({
+  'click .fa-bars': function() {
+    //$('#profile-sidebar').offcanvas('toggle');
+  },
   'click .list-group-item': function() {
     console.log("hi!");
   }
