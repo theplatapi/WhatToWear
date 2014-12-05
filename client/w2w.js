@@ -1,6 +1,7 @@
 var last = 0;
 var currentRotation = 0;
 var time = new ReactiveVar(moment());
+var profile = new ReactiveVar(business);
 var kelvinToFarenheit = function(kelvin) {
   return Math.round((kelvin - 273.15) * 9 / 5 + 32);
 };
@@ -24,9 +25,9 @@ Session.setDefault('rain', null);
 var interval = 60 * 1000, now = new Date, delay = interval - now % interval;
 
 Meteor.setTimeout(function() {
-  time.set(moment());
+  time.set(time.get().add(1, 'minute'));
   Meteor.setInterval(function() {
-    time.set(moment());
+    time.set(time.get().add(1, 'minute'));
   }, interval);
 }, delay);
 
@@ -124,13 +125,11 @@ Template.timeSelector.rendered = function() {
 
 Template.avatar.helpers({
   getShirt: function() {
-    //return shirt based on time and profile
-    return "/clothes_top_pea_coat.png";
+    return profile.get().getClothes(Session.get('temperature')).top;
   },
 
   getPants: function() {
-    //return pants based on time and profile
-    return "/clothes_bottom_pants.png";
+    return profile.get().getClothes(Session.get('temperature')).bottom;
   }
 });
 
@@ -163,8 +162,15 @@ Template.main.helpers({
 });
 
 Template.main.events({
-  'click .profile': function() {
-    console.log("hi!");
+  'click .profile': function(event) {
+    event.preventDefault();
+
+    //use string to access global variable name
+    profile.set(window[$(event.currentTarget).text().trim().toLowerCase()]);
+
+    //change highlight
+    $('.profile').parent().removeClass('active');
+    $(event.currentTarget).parent().addClass('active');
   }
 });
 
