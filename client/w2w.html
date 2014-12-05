@@ -8,55 +8,41 @@
 </body>
 
 <template name="main">
-  <nav id="profile-sidebar" class="navmenu navmenu-default navmenu-fixed-left" role="navigation">
+  <nav id="profile-sidebar" class="navmenu navmenu-default navmenu-fixed-left offcanvas-xs" role="navigation">
     <ul class="nav navmenu-nav">
-      <li class="active"><a href="#">Business</a></li>
-      <li><a href="#">Programmer</a></li>
-      <li><a href="#">Clubbing</a></li>
+      <li class="profile active"><a href="#">Business&nbsp;<i class="fa fa-briefcase fa-2x"></i></a></li>
+      <li><a class="profile" href="#">Programmer&nbsp;<i class="fa fa-keyboard-o fa-2x"></i></a></li>
+      <li><a class="profile" href="#">Clubbing&nbsp;<i class="fa fa-gavel fa-2x"></i></a></li>
+      <li><a class="profile" href="#">Chiwawa&nbsp;<i class="fa fa-female fa-2x shiver"></i></a></li>
+      <li><a class="profile" href="#">Formal&nbsp;<i class="fa fa-glass fa-2x"></i></a></li>
+      <li><a class="profile" href="#">Exercise&nbsp;<i class="fa fa-heart-o fa-2x"></i></a></li>
+      <li><a class="profile" href="#">Hipster&nbsp;<i class="fa fa-meh-o fa-2x"></i></a></li>
+      <li>
+        <h3>Debug</h3>
+        {{getTime}}<br>
+        {{getWeather}}<br>
+        {{getCity}}<br>
+        {{getRain}} mm rain
+      </li>
     </ul>
   </nav>
 
-  <div class="canvas">
-    <div class="navbar navbar-default navbar-fixed-top">
-      <button class="faButton" data-toggle="offcanvas" data-recalc="false" data-target="#profile-sidebar" data-canvas=".canvas">
-        <i class="fa fa-bars fa-3x"></i>
-      </button>
-    </div>
-
-    <div class="container-fluid pane">
-      <!--Sets either the loading template or the profiles template, depending on if the data is ready-->
-      {{> Template.dynamic template=getTemplate}}
-      {{> avatar}}
-      {{> timeSelector}}
-    </div>
+  <div class="navbar navbar-default navbar-fixed-top">
+    <button class="faButton visible-xs" data-toggle="offcanvas" data-recalc="false" data-target="#profile-sidebar"
+            data-canvas="body">
+      <i class="fa fa-bars fa-3x"></i>
+    </button>
   </div>
-</template>
 
-<template name="profiles">
-  <div class="col-md-2 col-xs-2 pane">
-    <!--<div class="sidebar-offcanvas offcanvas" id="profile-sidebar" role="navigation">-->
-      <!--<div class="list-group">-->
-        <!--<a href="#" class="list-group-item active">Business</a>-->
-        <!--<a href="#" class="list-group-item">Programmer</a>-->
-        <!--<a href="#" class="list-group-item">Clubbing</a>-->
-        <!--<a href="#" class="list-group-item">Chiwawa</a>-->
-        <!--<a href="#" class="list-group-item">Formal</a>-->
-        <!--<a href="#" class="list-group-item">Exercise</a>-->
-        <!--<a href="#" class="list-group-item">Hipster</a>-->
-      <!--</div>-->
-    <!--</div>-->
-
-    <!--<div class="col-md-12">-->
-      <!--{{getTime}}<br>-->
-      <!--{{getWeather}}<br>-->
-      <!--{{getCity}}<br>-->
-      <!--{{getRain}} mm rain-->
-    <!--</div>-->
+  <div class="container-fluid pane">
+    <!--Sets either the loading template or the avatar template, depending on if the data is ready-->
+    {{> Template.dynamic template=getTemplate}}
+    {{> timeSelector}}
   </div>
 </template>
 
 <template name="avatar">
-  <div class="col-md-8 col-xs-8 pane">
+  <div class="col-md-8 col-md-push-2 col-sm-7 col-sm-push-2 col-xs-8 pane">
     <div id="avatar">
       <!--Shirt-->
       <div class="clothes" style="background: url('{{getShirt}}') no-repeat; background-size: contain"></div>
@@ -67,7 +53,7 @@
 </template>
 
 <template name="timeSelector">
-  <div class="col-md-2 col-xs-2 pane timeSelectorContainer">
+  <div class="col-md-2 col-md-push-2 col-sm-3 col-sm-push-2 col-xs-4 pane timeSelectorContainer">
     <div id="scrollBox">
       <div id="scrollContent"></div>
     </div>
@@ -76,7 +62,9 @@
 </template>
 
 <template name="loading">
-  <div class="col-md-2 col-xs-2">
-    <i class="fa fa-spinner fa-spin fa-5x"></i>
+  <div class="col-md-8 col-md-push-2 col-sm-7 col-sm-push-2 col-xs-8 pane">
+    <div class="centerSpinner">
+      <i class="fa fa-spinner fa-spin fa-5x"></i>
+    </div>
   </div>
 </template>
