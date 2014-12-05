@@ -20,7 +20,14 @@ Session.setDefault('city', null);
 Session.setDefault('temperature', null);
 Session.setDefault('rain', null);
 
-//get city here
+//update time every minute
+Tracker.autorun(function() {
+  Meteor.setInterval(function() {
+    time.set(moment());
+  }, 60000);
+});
+
+//get city
 Tracker.autorun(function() {
   var position = Geolocation.currentLocation();
 
@@ -46,7 +53,7 @@ Tracker.autorun(function() {
   }
 });
 
-//get forecast here
+//get forecast
 Tracker.autorun(function() {
   var forecast;
   var unixTime = moment(time.get()).utc().unix();
