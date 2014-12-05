@@ -122,11 +122,23 @@ Template.timeSelector.rendered = function() {
   });
 };
 
-Template.profiles.rendered = function() {
-  //$('#profile-sidebar').offcanvas({'toggle': true, canvas: true});
-};
+Template.avatar.helpers({
+  getShirt: function() {
+    //return shirt based on time and profile
+    return "/clothes_top_pea_coat.png";
+  },
 
-Template.profiles.helpers({
+  getPants: function() {
+    //return pants based on time and profile
+    return "/clothes_bottom_pants.png";
+  }
+});
+
+Template.main.helpers({
+  getTemplate: function() {
+    return Session.equals('temperature', null) ? 'loading' : 'avatar';
+  },
+
   getTime: function() {
     return time.get().calendar();
   },
@@ -150,30 +162,9 @@ Template.profiles.helpers({
   }
 });
 
-Template.profiles.events({
-  'click .fa-bars': function() {
-    //$('#profile-sidebar').offcanvas('toggle');
-  },
-  'click .list-group-item': function() {
+Template.main.events({
+  'click .profile': function() {
     console.log("hi!");
-  }
-});
-
-Template.avatar.helpers({
-  getShirt: function() {
-    //return shirt based on time and profile
-    return "/clothes_top_pea_coat.png";
-  },
-
-  getPants: function() {
-    //return pants based on time and profile
-    return "/clothes_bottom_pants.png";
-  }
-});
-
-Template.main.helpers({
-  getTemplate: function() {
-    return Session.equals('temperature', null) ? 'loading' : 'profiles';
   }
 });
 
