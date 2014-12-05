@@ -20,12 +20,15 @@ Session.setDefault('city', null);
 Session.setDefault('temperature', null);
 Session.setDefault('rain', null);
 
-//update time every minute
-Tracker.autorun(function() {
+//update time every minute on the dot
+var interval = 60 * 1000, now = new Date, delay = interval - now % interval;
+
+Meteor.setTimeout(function() {
+  time.set(moment());
   Meteor.setInterval(function() {
     time.set(moment());
-  }, 60000);
-});
+  }, interval);
+}, delay);
 
 //get city
 Tracker.autorun(function() {
