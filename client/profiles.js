@@ -34,7 +34,7 @@ programmer = {
     else if (temperature < 65) {
       top = '/clothes/top_shirt_long.png';
     }
-    else if (temperature <= 70) {
+    else if (temperature < 80) {
       top = '/clothes/top_shirt.png'
     }
     else if (temperature >= 80) {
