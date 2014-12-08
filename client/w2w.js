@@ -2,7 +2,7 @@ var last = 0;
 var currentRotation = 0;
 var time = new ReactiveVar(moment());
 var profile = new ReactiveVar(business);
-var kelvinToFarenheit = function(kelvin) {
+var kelvinToFahrenheit = function(kelvin) {
   return Math.round((kelvin - 273.15) * 9 / 5 + 32);
 };
 var setScrollHeight = function(self, radius) {
@@ -81,7 +81,7 @@ Tracker.autorun(function() {
 
       if (line) {
         //linearly interpolate the current temperature
-        Session.set('temperature', kelvinToFarenheit(line.slope * unixTime + line.yIntercept));
+        Session.set('temperature', kelvinToFahrenheit(line.slope * unixTime + line.yIntercept));
         Session.set('rain', line.rain);
       }
     }
@@ -173,4 +173,3 @@ Template.main.events({
     $(event.currentTarget).parent().addClass('active');
   }
 });
-
