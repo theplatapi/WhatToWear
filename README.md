@@ -10,7 +10,7 @@
 * Put the pane in it's own template
 
 ##Temperature Information
-* Find an intelligent way to display weather data
+* Make a city search
 
 ##Avatar
 * Have profile selecting change the avatar's clothes
@@ -26,11 +26,18 @@
   * Clothes for hipster
 
 ##Dial
-* Switch to a clock dial so user can see which time they're toggling to. Readability is key.
+* Dial needs to tell day, time, and weather details.
 * Intuitive way to know if the clock is wound up
 
-#Settings under profiles
+##Settings under profiles
 * Switch between male and female
   * If it's a user's first time, show top notification that gender can be set. Save gender and last selected profile in db.
+  * Randomly select the order of the male and female buttons (?)
 * Change number of days to look ahead. Default to end of second day.
   * Have a number with - and + buttons around it.
+
+##Tests
+###Unit Tests
+* Make sure profiles returns clothes every degree between -100 and 100
+###Acceptance Tests
+* Make sure weather is in correct spot on mobile and desktop
