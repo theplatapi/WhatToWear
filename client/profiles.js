@@ -1,3 +1,4 @@
+//TODO: Accept gender as an argument
 undershirt = {
   getClothes: function() {
     return {top: '', bottom: ''};
