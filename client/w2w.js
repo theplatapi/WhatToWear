@@ -123,21 +123,7 @@ Template.timeSelector.rendered = function() {
   });
 };
 
-Template.avatar.helpers({
-  getShirt: function() {
-    return profile.get().getClothes(Session.get('temperature')).top;
-  },
-
-  getPants: function() {
-    return profile.get().getClothes(Session.get('temperature')).bottom;
-  }
-});
-
-Template.main.helpers({
-  getTemplate: function() {
-    return Session.equals('temperature', null) ? 'loading' : 'avatar';
-  },
-
+Template.weatherInfo.helpers({
   getTime: function() {
     return time.get().calendar();
   },
@@ -161,6 +147,22 @@ Template.main.helpers({
   }
 });
 
+Template.avatar.helpers({
+  getShirt: function() {
+    return profile.get().getClothes(Session.get('temperature')).top;
+  },
+
+  getPants: function() {
+    return profile.get().getClothes(Session.get('temperature')).bottom;
+  }
+});
+
+Template.main.helpers({
+  getTemplate: function() {
+    return Session.equals('temperature', null) ? 'loading' : 'avatar';
+  }
+});
+
 Template.main.events({
   'click .profile': function(event) {
     event.preventDefault();
@@ -171,5 +173,13 @@ Template.main.events({
     //change highlight
     $('.profile').parent().removeClass('active');
     $(event.currentTarget).parent().addClass('active');
+  }
+});
+
+Template.settings.events({
+  'click .gender': function(event) {
+    $('.gender').removeClass('active btn-primary').addClass('btn-default');
+    $(event.currentTarget).addClass('active btn-primary').removeClass('btn-default');
+    console.log($(event.currentTarget).text());
   }
 });

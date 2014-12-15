@@ -1,6 +1,7 @@
 <head>
   <title>What To Wear</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="shortcut icon" type="image/ico" href="/favicon.ico"/>
 </head>
 
 <body>
@@ -8,25 +9,7 @@
 </body>
 
 <template name="main">
-  <nav id="profile-sidebar" class="navmenu navmenu-default navmenu-fixed-left offcanvas-xs" role="navigation">
-    <ul class="nav navmenu-nav">
-      <li class="active"><a class="profile" href="">Business&nbsp;<i class="fa fa-briefcase fa-2x"></i></a></li>
-      <li><a class="profile" href="">Programmer&nbsp;<i class="fa fa-keyboard-o fa-2x"></i></a></li>
-      <li><a class="profile" href="">Clubbing&nbsp;<i class="fa fa-gavel fa-2x"></i></a></li>
-      <li><a class="profile" href="">Cold&nbsp;<i class="fa fa-female fa-2x shiver"></i></a></li>
-      <li><a class="profile" href="">Formal&nbsp;<i class="fa fa-glass fa-2x"></i></a></li>
-      <li><a class="profile" href="">Exercise&nbsp;<i class="fa fa-heart-o fa-2x"></i></a></li>
-      <li><a class="profile" href="">Hipster&nbsp;<i class="fa fa-meh-o fa-2x"></i></a></li>
-      <li>
-        <h3>Debug</h3>
-        {{getTime}}<br>
-        {{getWeather}}<br>
-        {{getCity}}<br>
-        {{getRain}} mm rain
-      </li>
-    </ul>
-  </nav>
-
+  {{> profiles}}
   <div class="navbar navbar-default navbar-fixed-top">
     <button class="faButton visible-xs" data-toggle="offcanvas" data-recalc="false" data-target="#profile-sidebar"
             data-canvas="body">
@@ -41,7 +24,40 @@
   </div>
 </template>
 
+<template name="profiles">
+  <nav id="profile-sidebar" class="navmenu navmenu-default navmenu-fixed-left offcanvas-xs" role="navigation">
+    <ul class="nav navmenu-nav">
+      <li class="active"><a class="profile" href="">Business&nbsp;<i class="fa fa-briefcase fa-2x"></i></a></li>
+      <li><a class="profile" href="">Programmer&nbsp;<i class="fa fa-keyboard-o fa-2x"></i></a></li>
+      <li><a class="profile" href="">Clubbing&nbsp;<i class="fa fa-gavel fa-2x"></i></a></li>
+      <li><a class="profile" href="">Cold&nbsp;<i class="fa fa-female fa-2x shiver"></i></a></li>
+      <li><a class="profile" href="">Formal&nbsp;<i class="fa fa-glass fa-2x"></i></a></li>
+      <li><a class="profile" href="">Exercise&nbsp;<i class="fa fa-heart-o fa-2x"></i></a></li>
+      <li><a class="profile" href="">Hipster&nbsp;<i class="fa fa-meh-o fa-2x"></i></a></li>
+      <li class="hidden-xs">
+        <hr>
+        {{> weatherInfo}}
+      </li>
+      <li>
+        <hr>
+        {{>settings}}
+      </li>
+    </ul>
+  </nav>
+</template>
+
+<template name="weatherInfo">
+  <h3>Weather</h3>
+  {{getTime}}<br>
+  {{getWeather}}<br>
+  {{getCity}}<br>
+  {{getRain}} mm rain
+</template>
+
 <template name="avatar">
+  <div class="weatherInfo visible-xs">
+    {{> weatherInfo}}
+  </div>
   <div class="col-md-8 col-md-push-2 col-sm-7 col-sm-push-2 col-xs-8 pane">
     <div id="avatar">
       <!--Shirt-->
@@ -66,5 +82,13 @@
     <div class="centerSpinner">
       <i class="fa fa-spinner fa-spin fa-5x"></i>
     </div>
+  </div>
+</template>
+
+<template name="settings">
+  <h3>Clothing Style</h3>
+  <div class="btn-group btn-toggle">
+    <button id="male" class="btn btn-lg btn-primary gender active">MALE</button>
+    <button id="female" class="btn btn-lg btn-default gender">FEMALE</button>
   </div>
 </template>
