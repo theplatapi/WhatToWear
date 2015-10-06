@@ -40,7 +40,7 @@ programmer = {
     }
     else if (temperature >= 80) {
       top = '/clothes/top_shirt.png';
-      bottom = 'clothes/bottom_shorts';
+      bottom = '/clothes/bottom_shorts.png';
     }
 
     return {top: top, bottom: bottom};
