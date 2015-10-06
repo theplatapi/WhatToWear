@@ -1,5 +1,10 @@
 #TODO
 
+##Technical debt
+* Upgrade Meteor
+* Replace font awesome with Meteor package
+* Replace all templates with React components
+
 ##Profile Tab
 * Icons needed for
   * Clubbing (disco ball)
