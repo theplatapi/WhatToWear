@@ -2,12 +2,15 @@ html {
   height:100%;
 }
 
-
 body {
   height: 100%;
   background: url("/city-skyline.svg") bottom no-repeat;
   background-size: cover;
   margin: 0;
+}
+
+button:focus {
+  outline: 0 !important;
 }
 
 .pane {
@@ -53,4 +56,39 @@ body {
 #timeSelector {
   content: url("/timeSelector.png");
   height: 100%;
+}
+
+.faButton {
+  background: transparent;
+  border: none !important;
+}
+
+.navbar {
+  right: auto;
+  background: none;
+  border: none;
+}
+
+.shiver {
+  -webkit-animation-name: shiver;
+  -webkit-animation-duration: .2s;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+}
+
+.centerSpinner {
+  margin: 0 auto;
+  width: 0;
+}
+
+@-webkit-keyframes shiver {
+  0% { -webkit-transform: translate(0px, 0px) rotate(0deg); }
+  50% { -webkit-transform: translate(1px, 0px) rotate(0deg); }
+  100% { -webkit-transform: translate(0px, 0px) rotate(0deg); }
+}
+
+.weatherInfo {
+  position: absolute;
+  left: 45%;
 }

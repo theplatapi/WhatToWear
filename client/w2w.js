@@ -1,7 +1,8 @@
 var last = 0;
 var currentRotation = 0;
 var time = new ReactiveVar(moment());
-var kelvinToFarenheit = function(kelvin) {
+var profile = new ReactiveVar(business);
+var kelvinToFahrenheit = function(kelvin) {
   return Math.round((kelvin - 273.15) * 9 / 5 + 32);
 };
 var setScrollHeight = function(self, radius) {
@@ -20,7 +21,17 @@ Session.setDefault('city', null);
 Session.setDefault('temperature', null);
 Session.setDefault('rain', null);
 
-//get city here
+//update time every minute on the dot
+var interval = 60 * 1000, now = new Date, delay = interval - now % interval;
+
+Meteor.setTimeout(function() {
+  time.set(time.get().add(1, 'minute'));
+  Meteor.setInterval(function() {
+    time.set(time.get().add(1, 'minute'));
+  }, interval);
+}, delay);
+
+//get city
 Tracker.autorun(function() {
   var position = Geolocation.currentLocation();
 
@@ -46,7 +57,7 @@ Tracker.autorun(function() {
   }
 });
 
-//get forecast here
+//get forecast
 Tracker.autorun(function() {
   var forecast;
   var unixTime = moment(time.get()).utc().unix();
@@ -70,7 +81,7 @@ Tracker.autorun(function() {
 
       if (line) {
         //linearly interpolate the current temperature
-        Session.set('temperature', kelvinToFarenheit(line.slope * unixTime + line.yIntercept));
+        Session.set('temperature', kelvinToFahrenheit(line.slope * unixTime + line.yIntercept));
         Session.set('rain', line.rain);
       }
     }
@@ -112,7 +123,7 @@ Template.timeSelector.rendered = function() {
   });
 };
 
-Template.profiles.helpers({
+Template.weatherInfo.helpers({
   getTime: function() {
     return time.get().calendar();
   },
@@ -136,27 +147,39 @@ Template.profiles.helpers({
   }
 });
 
-Template.profiles.events({
-  'click .list-group-item': function() {
-    console.log("hi!");
-  }
-});
-
 Template.avatar.helpers({
   getShirt: function() {
-    //return shirt based on time and profile
-    return "/clothes_top_pea_coat.png";
+    return profile.get().getClothes(Session.get('temperature')).top;
   },
 
   getPants: function() {
-    //return pants based on time and profile
-    return "/clothes_bottom_pants.png";
+    return profile.get().getClothes(Session.get('temperature')).bottom;
   }
 });
 
 Template.main.helpers({
   getTemplate: function() {
-    return Session.equals('temperature', null) ? 'loading' : 'profiles';
+    return Session.equals('temperature', null) ? 'loading' : 'avatar';
   }
 });
 
+Template.main.events({
+  'click .profile': function(event) {
+    event.preventDefault();
+
+    //use string to access global variable name
+    profile.set(window[$(event.currentTarget).text().trim().toLowerCase()]);
+
+    //change highlight
+    $('.profile').parent().removeClass('active');
+    $(event.currentTarget).parent().addClass('active');
+  }
+});
+
+Template.settings.events({
+  'click .gender': function(event) {
+    $('.gender').removeClass('active btn-primary').addClass('btn-default');
+    $(event.currentTarget).addClass('active btn-primary').removeClass('btn-default');
+    console.log($(event.currentTarget).text());
+  }
+});

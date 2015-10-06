@@ -11,4 +11,6 @@ reactive-var
 mdg:geolocation
 http
 underscore
+jquery
+theplatapi:jasny-bootstrap
 
