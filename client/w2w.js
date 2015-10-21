@@ -2,10 +2,10 @@ var last = 0;
 var currentRotation = 0;
 var time = new ReactiveVar(moment());
 var profile = new ReactiveVar(business);
-var kelvinToFahrenheit = function(kelvin) {
+var kelvinToFahrenheit = function (kelvin) {
   return Math.round((kelvin - 273.15) * 9 / 5 + 32);
 };
-var setScrollHeight = function(self, radius) {
+var setScrollHeight = function (self, radius) {
   //So we can at least scroll a bit.
   if (radius === 0) {
     radius = 20;
@@ -24,22 +24,22 @@ Session.setDefault('rain', null);
 //update time every minute on the dot
 var interval = 60 * 1000, now = new Date, delay = interval - now % interval;
 
-Meteor.setTimeout(function() {
+Meteor.setTimeout(function () {
   time.set(time.get().add(1, 'minute'));
-  Meteor.setInterval(function() {
+  Meteor.setInterval(function () {
     time.set(time.get().add(1, 'minute'));
   }, interval);
 }, delay);
 
 //get city
-Tracker.autorun(function() {
+Tracker.autorun(function () {
   var position = Geolocation.currentLocation();
 
   if (position) {
     HTTP.get('http://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + ','
-    + position.coords.longitude, function(err, data) {
+      + position.coords.longitude, function (err, data) {
       if (!err) {
-        var city = data.data.results[0].address_components.filter(function(address_component) {
+        var city = data.data.results[0].address_components.filter(function (address_component) {
           return _.contains(address_component.types, 'locality')
         });
 
@@ -58,7 +58,7 @@ Tracker.autorun(function() {
 });
 
 //get forecast
-Tracker.autorun(function() {
+Tracker.autorun(function () {
   var forecast;
   var unixTime = moment(time.get()).utc().unix();
 
@@ -70,9 +70,9 @@ Tracker.autorun(function() {
       Meteor.call('getWeather', Session.get('city'));
     }
     else {
-      var line = forecast.forecasts.filter(function(element) {
+      var line = forecast.forecasts.filter(function (element) {
         return element.date > unixTime;
-      }).reduce(function(prev, curr) {
+      }).reduce(function (prev, curr) {
         if (prev.date < curr.date) {
           return prev;
         }
@@ -88,7 +88,7 @@ Tracker.autorun(function() {
   }
 });
 
-Template.timeSelector.rendered = function() {
+Template.timeSelector.rendered = function () {
   var self = this;
   //set initial dial turn. Morning is 7am.
   var minutesOff = time.get().diff(moment().hour(7).minute(0), 'minutes');
@@ -100,7 +100,7 @@ Template.timeSelector.rendered = function() {
   setScrollHeight(self, radius);
 
   //set up event listener
-  self.$('#scrollBox').scroll(function() {
+  self.$('#scrollBox').scroll(function () {
     var newRadius = self.$('#timeSelector').width() / 2;
 
     //dial radius changed from screen resize.
@@ -124,23 +124,23 @@ Template.timeSelector.rendered = function() {
 };
 
 Template.weatherInfo.helpers({
-  getTime: function() {
+  getTime: function () {
     return time.get().calendar();
   },
 
-  getWeather: function() {
+  getWeather: function () {
     if (!Session.equals('temperature', null)) {
       return Session.get('temperature') + '\xBAF';
     }
   },
 
-  getCity: function() {
+  getCity: function () {
     if (!Session.equals('city', null)) {
       return Session.get('city');
     }
   },
 
-  getRain: function() {
+  getRain: function () {
     if (!Session.equals('rain', null)) {
       return Session.get('rain');
     }
@@ -148,23 +148,23 @@ Template.weatherInfo.helpers({
 });
 
 Template.avatar.helpers({
-  getShirt: function() {
+  getShirt: function () {
     return profile.get().getClothes(Session.get('temperature')).top;
   },
 
-  getPants: function() {
+  getPants: function () {
     return profile.get().getClothes(Session.get('temperature')).bottom;
   }
 });
 
 Template.main.helpers({
-  getTemplate: function() {
+  getTemplate: function () {
     return Session.equals('temperature', null) ? 'loading' : 'avatar';
   }
 });
 
 Template.main.events({
-  'click .profile': function(event) {
+  'click .profile': function (event) {
     event.preventDefault();
 
     //use string to access global variable name
@@ -177,7 +177,7 @@ Template.main.events({
 });
 
 Template.settings.events({
-  'click .gender': function(event) {
+  'click .gender': function (event) {
     $('.gender').removeClass('active btn-primary').addClass('btn-default');
     $(event.currentTarget).addClass('active btn-primary').removeClass('btn-default');
     console.log($(event.currentTarget).text());
