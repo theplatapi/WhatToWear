@@ -92,3 +92,7 @@ button:focus {
   position: absolute;
   left: 45%;
 }
+
+.sidebar-info {
+  padding: 0 15px;
+}
