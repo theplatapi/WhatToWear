@@ -65,8 +65,7 @@ Tracker.autorun(function () {
   if (!Session.equals('city', null)) {
     forecast = Weather.findOne({city: Session.get('city')});
 
-    //reject if the weather is 12 hours old
-    if (!forecast || moment(forecast.downloaded).add(12, 'hours').isBefore(moment())) {
+    if (!forecast) {
       Meteor.call('getWeather', Session.get('city'));
     }
     else {

@@ -1,11 +1,9 @@
 Meteor.methods({
   getWeather: function(city) {
-    var cached = Weather.findOne({city: city});
-    if (cached) {
-      var upToDate = moment(cached.downloaded).add(12, 'hours').isAfter(moment());
-    }
+    //Get download within last 12 hours
+    var cached = Weather.findOne({city: city, downloaded: {$gte: moment().subtract(12, 'hours').toDate()}});
 
-    if (!cached || !upToDate) {
+    if (!cached) {
       var forecasts = [];
       var forecast = HTTP.get('http://api.openweathermap.org/data/2.5/forecast?q=' + city + '&APPID='
       + Meteor.settings.owmKey).data;
