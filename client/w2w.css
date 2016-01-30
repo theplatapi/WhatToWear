@@ -96,3 +96,7 @@ button:focus {
 .sidebar-info {
   padding: 0 15px;
 }
+
+.profile {
+  text-align: left;
+}
