@@ -36,7 +36,7 @@ Tracker.autorun(function () {
   var position = Geolocation.currentLocation();
 
   if (position) {
-    HTTP.get('http://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + ','
+    HTTP.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + ','
       + position.coords.longitude, function (err, data) {
       if (!err) {
         var city = data.data.results[0].address_components.filter(function (address_component) {
