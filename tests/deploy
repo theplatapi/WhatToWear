@@ -1,1 +1,1 @@
-meteor deploy --settings settings.json www.whattowearapp.com
+meteor deploy --settings settings.json whattowear.meteor.com
