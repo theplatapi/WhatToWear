@@ -144,6 +144,8 @@ Template.weatherInfo.helpers({
     if (!Session.equals('rain', null)) {
       return Session.get('rain');
     }
+
+    return 0;
   }
 });
 
