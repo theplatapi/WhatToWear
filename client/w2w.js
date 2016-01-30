@@ -163,7 +163,7 @@ Template.main.helpers({
   }
 });
 
-Template.main.events({
+Template.profiles.events({
   'click .profile': function (event) {
     event.preventDefault();
 
