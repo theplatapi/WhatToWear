@@ -1,3 +1,5 @@
+Meteor.subscribe('weather');
+
 var last = 0;
 var currentRotation = 0;
 var time = new ReactiveVar(moment());
