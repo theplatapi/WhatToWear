@@ -38,6 +38,7 @@ Tracker.autorun(function () {
   var position = Geolocation.currentLocation();
 
   if (position) {
+    console.log('Got position');
     HTTP.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + ','
       + position.coords.longitude, function (err, data) {
       if (!err) {
@@ -56,6 +57,9 @@ Tracker.autorun(function () {
         console.log(err);
       }
     });
+  }
+  else {
+    Session.set('city', 'Los Angeles');
   }
 });
 
