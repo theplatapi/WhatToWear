@@ -10,7 +10,6 @@ http
 underscore
 jquery
 
-standard-minifiers
 meteor-base
 mongo
 blaze-html-templates
@@ -24,3 +23,5 @@ spacebars
 check
 jasny:bootstrap
 force-ssl
+standard-minifier-css
+standard-minifier-js
