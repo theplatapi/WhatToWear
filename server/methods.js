@@ -1,7 +1,8 @@
 Meteor.methods({
   getWeather: function(city) {
     //Get download within last 12 hours
-    var cached = Weather.findOne({city: city, downloaded: {$gte: moment().subtract(12, 'hours').toDate()}});
+    var twelveHoursAgo = moment().subtract(12, 'hours').toDate();
+    var cached = Weather.findOne({city: city, downloaded: {$gte: twelveHoursAgo}});
 
     if (!cached) {
       var forecasts = [];
@@ -23,6 +24,10 @@ Meteor.methods({
         });
       }
       Weather.upsert({city: city}, {$set: {downloaded: new Date(), forecasts: forecasts}});
+
+      //Remove old data
+      this.unblock();
+      Weather.remove({downloaded: {$lt: twelveHoursAgo}});
     }
   }
 });
