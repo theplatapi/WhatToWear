@@ -25,7 +25,7 @@ Meteor.methods({
       }
       Weather.upsert({city: city}, {$set: {downloaded: new Date(), forecasts: forecasts}});
 
-      //Remove old data
+      //Remove weather data older than 12 hours
       this.unblock();
       Weather.remove({downloaded: {$lt: twelveHoursAgo}});
     }
