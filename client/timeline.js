@@ -19,6 +19,13 @@ let data = [
   }
 ];
 
+let start = "1/1/1775";
+let end = "1/1/1785";
+
+var timeAxis = d3.time.scale()
+  .domain([new Date(start), new Date(end)])
+  .nice(d3.time.year)
+  .range([0, 1000]);
 
 Template.timeline.onRendered(function () {
   let svg = d3.select("#timeline1")
@@ -27,7 +34,8 @@ Template.timeline.onRendered(function () {
     .attr("height", "100%");
 
   let timeline = d3.layout.timeline()
-    .size([1000, 300]);
+    .size([1000, 300])
+    .extent([start, end]);
 
   let colorScale = d3.scale.ordinal()
     .domain(["European", "Native"])
@@ -35,7 +43,9 @@ Template.timeline.onRendered(function () {
 
   let timelineBands = timeline(data);
 
-  d3.select("svg").selectAll("rect")
+  svg.append("g")
+    .attr("width", "90%")
+    .selectAll("rect")
     .data(timelineBands)
     .enter()
     .append("rect")
@@ -46,4 +56,9 @@ Template.timeline.onRendered(function () {
     .style("fill", d => colorScale(d.sphere))
     .style("stroke", "black")
     .style("stroke-width", 1);
+
+  svg.append("g")
+    .attr("width", "10%")
+    .attr("class", "time axis")
+    .call(d3.svg.axis().scale(timeAxis).orient("right"));
 });
