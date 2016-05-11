@@ -1,3 +1,15 @@
+import { Meteor } from 'meteor/meteor';
+import Big from 'big.js';
+import moment from 'moment';
+import $ from 'jquery';
+
+import { Template } from 'meteor/templating'
+import { Session } from 'meteor/session'
+import { ReactiveVar } from 'meteor/reactive-var'
+import { Tracker } from 'meteor/tracker'
+
+import Weather from '/imports/collections/weather';
+
 Meteor.subscribe('weather');
 
 var last = 0;

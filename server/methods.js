@@ -1,3 +1,7 @@
+import { Meteor } from 'meteor/meteor';
+import moment from 'moment';
+import Weather from '/imports/collections/weather';
+
 Meteor.methods({
   getWeather: function(city) {
     //Get download within last 12 hours

@@ -8,7 +8,6 @@ reactive-var
 mdg:geolocation
 http
 underscore
-jquery
 
 meteor-base
 mongo
@@ -25,3 +24,4 @@ jasny:bootstrap
 force-ssl
 standard-minifier-css
 standard-minifier-js
+ecmascript
