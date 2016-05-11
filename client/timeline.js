@@ -4,24 +4,18 @@ import 'd3-layout-timeline';
 
 import { Template } from 'meteor/templating'
 
-let margin = {top: 10, right: 30, bottom: 40, left: 55};
-let width = 300 - margin.left - margin.right;
-let height = 200 - margin.top - margin.bottom;
-
 Template.timeline.onRendered(function () {
   var svg = d3.select("#timeline1")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("width", "100%")
+    .attr("height", "100%");
 
   var timeline = d3.layout.timeline()
     .size([1000, 300]);
 
   let colorScale = d3.scale.ordinal()
-    .domain(["European", "Native", "Colonial", "Latin America", "Internal"])
-    .range(["#96abb1", "#313746", "#b0909d", "#687a97", "#292014"]);
+    .domain(["European", "Native"])
+    .range(["#96abb1", "#313746"]);
 
   let data = [
     {
