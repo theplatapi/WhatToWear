@@ -20,7 +20,8 @@
   <div class="container-fluid pane">
     <!--Sets either the loading template or the avatar template, depending on if the data is ready-->
     {{> Template.dynamic template=getTemplate}}
-    {{> timeSelector}}
+    {{!-- > timeSelector --}}
+    {{> timeline}}
   </div>
 </template>
 
@@ -91,5 +92,11 @@
   <div class="btn-group btn-toggle">
     <button id="male" class="btn btn-lg btn-primary gender active">MALE</button>
     <button id="female" class="btn btn-lg btn-default gender" disabled>FEMALE</button>
+  </div>
+</template>
+
+<template name="timeline">
+  <div class="col-md-2 col-md-push-2 col-sm-3 col-sm-push-2 col-xs-4 pane">
+    <div id="timeline1"></div>
   </div>
 </template>
