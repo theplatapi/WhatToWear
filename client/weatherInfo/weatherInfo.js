@@ -39,10 +39,6 @@ Template.weatherInfo.helpers({
   },
 
   getRain: function () {
-    if (!Session.equals('rain', null)) {
-      return Session.get('rain');
-    }
-
-    return 0;
+    return rain.get() || 0;
   }
 });
