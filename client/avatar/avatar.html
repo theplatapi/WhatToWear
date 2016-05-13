@@ -1,9 +1,9 @@
 <template name="avatar">
   {{#if hasTemperature}}
-    <div class="weatherInfo visible-xs">
-      {{> weatherInfo}}
-    </div>
-    <div class="avatar-container col-md-8 col-md-push-2 col-sm-7 col-sm-push-2 col-xs-8 pane">
+    <div class="col-md-8 col-md-push-2 col-sm-7 col-sm-push-2 col-xs-8 pane avatar-container">
+      <div class="weatherInfo visible-xs">
+        {{> weatherInfo}}
+      </div>
       <div id="avatar">
         <!--Shirt-->
         <div class="clothes" style="background: url('{{getShirt}}') no-repeat; background-size: contain"></div>

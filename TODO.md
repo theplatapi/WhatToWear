@@ -1,8 +1,8 @@
 #TODO
 
-##Technical debt
-* Replace font awesome with Meteor/NPM package
-* Replace all templates with React components
+##Time Selection
+* Design a timeline tool to select +7 days. Limit zoom to 1.5 - 2 days.
+* Show outfit previews every time an item changes
 
 ##Profile Tab
 * Icons needed for
@@ -10,7 +10,7 @@
   * Cold
   * Hipster (face with glasses)
 * Have side bar close when a profile is selected
-* See if we can make the pane size responsively
+* See if we can make the pane size responsive
 * Put the pane in it's own template
 
 ##Temperature Information
@@ -29,16 +29,15 @@
   * Clothes for exercise
   * Clothes for hipster
 
-##Dial
-* Dial needs to tell day, time, and weather details.
-* Intuitive way to know if the clock is wound up
-
 ##Settings under profiles
 * Switch between male and female
   * If it's a user's first time, show top notification that gender can be set. Save gender and last selected profile in db.
   * Randomly select the order of the male and female buttons (?)
 * Change number of days to look ahead. Default to end of second day.
   * Have a number with - and + buttons around it.
+
+##Monitization
+* Hide clothing option if purchased. See if Amazon API supports it or give skip option.
 
 ##Tests
 ###Unit Tests
