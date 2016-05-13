@@ -2,6 +2,7 @@ import moment from 'moment';
 import {Session} from 'meteor/session';
 import getWeather from '/imports/util/getWeather';
 import Weather from '/imports/collections/weather';
+import _ from 'lodash';
 
 let temperature = new ReactiveVar(null);
 let rain = new ReactiveVar(null);
@@ -29,7 +30,7 @@ Template.weatherInfo.helpers({
   },
 
   getWeather: function () {
-    if (!Session.equals('temperature', null)) {
+    if (_.isNumber(temperature.get())) {
       return temperature.get() + '\xBAF';
     }
   },
