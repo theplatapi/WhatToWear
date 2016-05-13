@@ -5,7 +5,7 @@ let kelvinToFahrenheit = function (kelvin) {
   return Math.round((kelvin - 273.15) * 9 / 5 + 32);
 };
 
-export default getTemperature = (forecast => {
+export default getWeather = (forecast => {
   let unixTime = moment(Session.get('time')).unix();
 
   //Find the correct forecast element
@@ -18,9 +18,10 @@ export default getTemperature = (forecast => {
     .value();
 
   if (line) {
-    //linearly interpolate the current temperature
-    return kelvinToFahrenheit(line.slope * unixTime + line.yIntercept);
-
-    //line.rain
+    return {
+      //linearly interpolate the current temperature
+      temperature: kelvinToFahrenheit(line.slope * unixTime + line.yIntercept),
+      rain: line.rain
+    };
   }
 });

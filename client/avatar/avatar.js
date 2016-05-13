@@ -3,7 +3,7 @@ import {Session} from 'meteor/session'
 import _ from 'lodash';
 import profiles from '/imports/profiles/profiles';
 import Weather from '/imports/collections/weather';
-import getTemperature from '/imports/util/getTemperature';
+import getWeather from '/imports/util/getTemperature';
 
 Session.setDefault('profile', 'business');
 let temperature = new ReactiveVar(null);
@@ -18,7 +18,8 @@ Template.avatar.onCreated(function () {
 
   template.autorun(() => {
     let forecast = Weather.findOne({city: Template.currentData().city.get()});
-    temperature.set(getTemperature(_.get(forecast, 'forecasts')));
+    let weather = getWeather(_.get(forecast, 'forecasts'));
+    temperature.set(_.get(weather, 'temperature'));
   });
 });
 
@@ -30,6 +31,6 @@ Template.avatar.helpers({
 
   getPants: function () {
     let profile = profiles[Session.get('profile')];
-    return profile.getClothes(temperature.get()).bottom;  
+    return profile.getClothes(temperature.get()).bottom;
   }
 });
