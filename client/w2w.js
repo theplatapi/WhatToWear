@@ -15,39 +15,8 @@ var profile = new ReactiveVar(business);
 var kelvinToFahrenheit = function (kelvin) {
   return Math.round((kelvin - 273.15) * 9 / 5 + 32);
 };
-Session.setDefault('city', null);
 Session.setDefault('temperature', null);
 Session.setDefault('rain', null);
-
-//get city
-Tracker.autorun(function () {
-  var position = Geolocation.currentLocation();
-
-  if (position) {
-    console.log('Got position');
-    HTTP.get('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + position.coords.latitude + ','
-      + position.coords.longitude, function (err, data) {
-      if (!err) {
-        var city = data.data.results[0].address_components.filter(function (address_component) {
-          return _.contains(address_component.types, 'locality')
-        });
-
-        if (city && city[0]) {
-          Session.set('city', city[0].long_name);
-        }
-        else {
-          console.log('no city!');
-        }
-      }
-      else {
-        console.log(err);
-      }
-    });
-  }
-  else {
-    Session.set('city', 'Los Angeles');
-  }
-});
 
 //get forecast
 Tracker.autorun(function () {

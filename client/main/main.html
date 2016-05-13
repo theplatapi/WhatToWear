@@ -1,5 +1,5 @@
 <template name="main">
-  {{> profiles}}
+  {{> profiles city=getCityReactive}}
   <div class="navbar navbar-default navbar-fixed-top">
     <button class="faButton visible-xs" data-toggle="offcanvas" data-recalc="false" data-target="#profile-sidebar"
             data-canvas="body">
@@ -9,7 +9,7 @@
 
   <div class="container-fluid pane">
     <!--Sets either the loading template or the avatar template, depending on if the data is ready-->
-    {{> Template.dynamic template=getTemplate}}
+    {{> avatar city=getCityReactive}}
     {{> timeSelector}}
     {{!-- > timeline --}}
   </div>
