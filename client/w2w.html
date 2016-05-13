@@ -8,8 +8,6 @@
 {{> main}}
 </body>
 
-
-
 <template name="profiles">
   <nav id="profile-sidebar" class="navmenu navmenu-default navmenu-fixed-left offcanvas-xs" role="navigation">
     <ul class="nav navmenu-nav">
@@ -39,20 +37,6 @@
   {{getWeather}}<br>
   {{getCity}}<br>
   {{getRain}} mm rain
-</template>
-
-<template name="avatar">
-  <div class="weatherInfo visible-xs">
-    {{> weatherInfo}}
-  </div>
-  <div class="col-md-8 col-md-push-2 col-sm-7 col-sm-push-2 col-xs-8 pane">
-    <div id="avatar">
-      <!--Shirt-->
-      <div class="clothes" style="background: url('{{getShirt}}') no-repeat; background-size: contain"></div>
-      <!--Pants-->
-      <div class="clothes" style="background: url('{{getPants}}') no-repeat; background-size: contain"></div>
-    </div>
-  </div>
 </template>
 
 <template name="loading">
