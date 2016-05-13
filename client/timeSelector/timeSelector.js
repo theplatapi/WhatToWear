@@ -8,13 +8,13 @@ let last = 0;
 //update time every minute on the dot
 let interval = 60 * 1000;
 
-Meteor.setInterval(function () {
+Meteor.setInterval(() => {
   let time = Session.get('time');
   Session.set('time', moment(time).add(1, 'minute').valueOf());
 }, interval);
 
 
-let setScrollHeight = function (template, radius) {
+let setScrollHeight = (template, radius) => {
   //So we can at least scroll a bit.
   if (radius === 0) {
     radius = 20;
@@ -27,7 +27,7 @@ let setScrollHeight = function (template, radius) {
   template.$('#scrollContent').css('height', newHeight + 'px');
 };
 
-Template.timeSelector.rendered = function () {
+Template.timeSelector.rendered = () => {
   let template = this;
   //set initial dial turn. Morning is 7am.
   let time = moment(Session.get('time'));
