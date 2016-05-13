@@ -1,5 +1,6 @@
 import {Template} from 'meteor/templating';
-import {Session} from 'meteor/session'
+import {Session} from 'meteor/session';
+import $ from 'jquery';
 
 Template.profiles.events({
   'click .profile': function (event, template) {
@@ -9,6 +10,6 @@ Template.profiles.events({
 
     //change highlight
     template.$('.profile').parent().removeClass('active');
-    template.$(event.currentTarget).parent().addClass('active');
+    $(event.currentTarget).parent().addClass('active');
   }
 });
