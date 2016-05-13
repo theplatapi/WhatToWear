@@ -1,7 +1,7 @@
 import {Template} from 'meteor/templating';
 import {Session} from 'meteor/session';
 import $ from 'jquery';
-import WeatherInfo from '/imports/ui/WeatherInfo';
+import WeatherInfoContainer from '/imports/ui/WeatherInfo';
 
 import './profiles.html';
 
@@ -18,8 +18,8 @@ Template.profiles.events({
 });
 
 Template.profiles.helpers({
-  WeatherInfo() {
-    return WeatherInfo;
+  WeatherInfoContainer() {
+    return WeatherInfoContainer;
   },
 
   getCityReactive() {
