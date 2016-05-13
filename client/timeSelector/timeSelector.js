@@ -8,18 +8,11 @@ var last = 0;
 
 //update time every minute on the dot
 let interval = 60 * 1000;
-let now = new Date();
-let delay = interval - now % interval;
 
-//TODO: Do we need outer?
-Meteor.setTimeout(function () {
-  Session.set('time', moment(Session.get('time')).add(1, 'minute').valueOf());
-
-  Meteor.setInterval(function () {
-    let time = Session.get('time');
-    Session.set('time', moment(time).add(1, 'minute').valueOf());
-  }, interval);
-}, delay);
+Meteor.setInterval(function () {
+  let time = Session.get('time');
+  Session.set('time', moment(time).add(1, 'minute').valueOf());
+}, interval);
 
 
 var setScrollHeight = function (self, radius) {
