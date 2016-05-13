@@ -32,5 +32,9 @@ Template.avatar.helpers({
   getPants: function () {
     let profile = profiles[Session.get('profile')];
     return profile.getClothes(temperature.get()).bottom;
+  },
+
+  hasTemperature: function () {
+    return _.isNumber(temperature.get());
   }
 });
