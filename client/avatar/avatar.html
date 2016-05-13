@@ -11,7 +11,9 @@
         <div class="clothes" style="background: url('{{getPants}}') no-repeat; background-size: contain"></div>
       </div>
     </div>
-  {{else}}
-    {{> loading}}
+  {{else --}}
+    <div class="avatar-container">
+      {{> loading}}
+    </div>
   {{/if}}
 </template>
