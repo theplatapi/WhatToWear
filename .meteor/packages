@@ -25,3 +25,6 @@ force-ssl
 standard-minifier-css
 standard-minifier-js
 ecmascript
+react-template-helper
+less
+fortawesome:fontawesome

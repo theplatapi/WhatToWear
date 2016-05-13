@@ -7,10 +7,12 @@
     </button>
   </div>
 
-  <div class="container-fluid pane">
-    <!--Sets either the loading template or the avatar template, depending on if the data is ready-->
-    {{> avatar city=getCityReactive}}
-    {{> timeSelector}}
-    {{!-- > timeline --}}
+  <div class="main-container">
+    <div class="container-fluid pane">
+      <!--Sets either the loading template or the avatar template, depending on if the data is ready-->
+      {{> avatar city=getCityReactive}}
+      {{> timeSelector}}
+      {{!-- > timeline --}}
+    </div>
   </div>
 </template>
