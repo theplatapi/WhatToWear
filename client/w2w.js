@@ -28,19 +28,6 @@ Template.weatherInfo.helpers({
   }
 });
 
-Template.profiles.events({
-  'click .profile': function (event) {
-    event.preventDefault();
-
-    //use string to access global variable name
-    profile.set(window[$(event.currentTarget).text().trim().toLowerCase()]);
-
-    //change highlight
-    $('.profile').parent().removeClass('active');
-    $(event.currentTarget).parent().addClass('active');
-  }
-});
-
 Template.settings.events({
   'click .gender': function (event) {
     $('.gender').removeClass('active btn-primary').addClass('btn-default');

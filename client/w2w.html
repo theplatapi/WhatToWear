@@ -8,29 +8,6 @@
 {{> main}}
 </body>
 
-<template name="profiles">
-  <nav id="profile-sidebar" class="navmenu navmenu-default navmenu-fixed-left offcanvas-xs" role="navigation">
-    <ul class="nav navmenu-nav">
-      <li class="sidebar-info"><h3>Profiles</h3></li>
-      <li class="active"><a class="btn profile" href="">Business&nbsp;<i class="fa fa-briefcase fa-2x"></i></a></li>
-      <li><a class="btn profile" href="">Programmer&nbsp;<i class="fa fa-keyboard-o fa-2x"></i></a></li>
-      <li><a class="btn profile disabled" href="">Clubbing&nbsp;<i class="fa fa-gavel fa-2x"></i></a></li>
-      <li><a class="btn profile disabled" href="">Cold&nbsp;<i class="fa fa-female fa-2x shiver"></i></a></li>
-      <li><a class="btn profile disabled" href="">Formal&nbsp;<i class="fa fa-glass fa-2x"></i></a></li>
-      <li><a class="btn profile disabled" href="">Exercise&nbsp;<i class="fa fa-heart-o fa-2x"></i></a></li>
-      <li><a class="btn profile disabled" href="">Hipster&nbsp;<i class="fa fa-meh-o fa-2x"></i></a></li>
-      <li class="sidebar-info hidden-xs">
-        <hr>
-        {{> weatherInfo}}
-      </li>
-      <li class="sidebar-info">
-        <hr>
-        {{>settings}}
-      </li>
-    </ul>
-  </nav>
-</template>
-
 <template name="weatherInfo">
   <h3>Weather</h3>
   {{getTime}}<br>
