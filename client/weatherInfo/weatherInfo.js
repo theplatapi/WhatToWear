@@ -1,6 +1,6 @@
 import moment from 'moment';
 import {Session} from 'meteor/session';
-import getWeather from '/imports/util/getTemperature';
+import getWeather from '/imports/util/getWeather';
 import Weather from '/imports/collections/weather';
 
 let temperature = new ReactiveVar(null);

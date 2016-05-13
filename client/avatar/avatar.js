@@ -3,7 +3,7 @@ import {Session} from 'meteor/session'
 import _ from 'lodash';
 import profiles from '/imports/profiles/profiles';
 import Weather from '/imports/collections/weather';
-import getWeather from '/imports/util/getTemperature';
+import getWeather from '/imports/util/getWeather';
 
 Session.setDefault('profile', 'business');
 let temperature = new ReactiveVar(null);
