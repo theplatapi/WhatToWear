@@ -4,6 +4,9 @@ import _ from 'lodash';
 import profiles from '/imports/profiles/profiles';
 import Weather from '/imports/collections/weather';
 import getWeather from '/imports/util/getWeather';
+import WeatherInfo from '/imports/ui/WeatherInfo';
+
+import './avatar.html';
 
 Session.setDefault('profile', 'business');
 let temperature = new ReactiveVar(null);
@@ -36,5 +39,13 @@ Template.avatar.helpers({
 
   hasTemperature: function () {
     return _.isNumber(temperature.get());
+  },
+
+  WeatherInfo() {
+    return WeatherInfo;
+  },
+
+  getCityReactive() {
+    return Template.currentData().city;
   }
 });

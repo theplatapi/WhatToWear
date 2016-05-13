@@ -5,6 +5,8 @@ import {HTTP} from 'meteor/http';
 import {ReactiveVar} from 'meteor/reactive-var'
 import _ from 'lodash';
 
+import './main.html';
+
 Session.set('time', moment().valueOf());
 let city = new ReactiveVar(null);
 
