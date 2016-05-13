@@ -1,33 +1,37 @@
 import React, {Component, PropTypes} from 'react';
+import {createContainer} from 'meteor/react-meteor-data';
 import moment from 'moment';
 import {Session} from 'meteor/session';
 import getWeather from '/imports/util/getWeather';
 import Weather from '/imports/collections/weather';
 import _ from 'lodash';
 
-export default WeatherInfo = React.createClass({
-  mixins: [ReactMeteorData],
+const WeatherInfo = (props) => (
+  <div>
+    <h3>Weather</h3>
+    {props.city}<br/>
+    {moment(Session.get('time')).calendar()}<br/>
+    {props.temperature}<br/>
+    {props.rain} mm rain
+  </div>
+);
 
-  getMeteorData() {
-    this.userProfileSub = Meteor.subscribe('weather', this.props.city.get());
-    let forecast = Weather.findOne({city: this.props.city.get()});
-    let weather = getWeather(_.get(forecast, 'forecasts'));
+WeatherInfo.propTypes = {
+  city: React.PropTypes.string,
+  temperature: React.PropTypes.number,
+  rain: React.PropTypes.number,
+  listLoading: React.PropTypes.bool
+};
 
-    return {
-      temperature: _.get(weather, 'temperature'),
-      rain: _.get(weather, 'rain')
-    }
-  },
-
-  render() {
-    return (
-      <div>
-        <h3>Weather</h3>
-        {this.props.city.get()}<br/>
-        {moment(Session.get('time')).calendar()}<br/>
-        {this.data.temperature}<br/>
-        {this.data.rain || 0} mm rain
-      </div>
-    );
-  }
-});
+export default WeatherInfoContainer = createContainer(params => {
+  const handle = Meteor.subscribe('weather', params.city.get());
+  const forecast = Weather.findOne({city: params.city.get()});
+  const weather = getWeather(_.get(forecast, 'forecasts'));
+  
+  return {
+    listLoading: handle.ready(),
+    temperature: _.get(weather, 'temperature'),
+    rain: _.get(weather, 'rain') || 0,
+    city: params.city.get()
+  };
+}, WeatherInfo);
