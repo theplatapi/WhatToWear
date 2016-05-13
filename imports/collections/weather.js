@@ -1,3 +1,3 @@
-const Weather = new Mongo.Collection('weather');
+import { Mongo } from 'meteor/mongo';
 
-export default Weather
+export default Weather = new Mongo.Collection('weather');
