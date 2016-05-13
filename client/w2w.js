@@ -1,5 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import Big from 'big.js';
 import moment from 'moment';
 import $ from 'jquery';
 
@@ -12,38 +11,13 @@ import Weather from '/imports/collections/weather';
 
 Meteor.subscribe('weather');
 
-var last = 0;
-var currentRotation = 0;
-var time = new ReactiveVar(moment());
 var profile = new ReactiveVar(business);
 var kelvinToFahrenheit = function (kelvin) {
   return Math.round((kelvin - 273.15) * 9 / 5 + 32);
 };
-var setScrollHeight = function (self, radius) {
-  //So we can at least scroll a bit.
-  if (radius === 0) {
-    radius = 20;
-  }
-  //circumference is 1 day
-  var circumference = new Big(Math.PI).times(2).times(radius);
-  var extraHeight = circumference.times(3);
-  var newHeight = $(document).height() + Math.round(extraHeight);
-
-  self.$('#scrollContent').css('height', newHeight + 'px');
-};
 Session.setDefault('city', null);
 Session.setDefault('temperature', null);
 Session.setDefault('rain', null);
-
-//update time every minute on the dot
-var interval = 60 * 1000, now = new Date, delay = interval - now % interval;
-
-Meteor.setTimeout(function () {
-  time.set(time.get().add(1, 'minute'));
-  Meteor.setInterval(function () {
-    time.set(time.get().add(1, 'minute'));
-  }, interval);
-}, delay);
 
 //get city
 Tracker.autorun(function () {
@@ -78,7 +52,7 @@ Tracker.autorun(function () {
 //get forecast
 Tracker.autorun(function () {
   var forecast;
-  var unixTime = moment(time.get()).utc().unix();
+  var unixTime = moment(Session.get('time')).unix();
 
   if (!Session.equals('city', null)) {
     forecast = Weather.findOne({city: Session.get('city')});
@@ -105,44 +79,9 @@ Tracker.autorun(function () {
   }
 });
 
-Template.timeSelector.rendered = function () {
-  var self = this;
-  //set initial dial turn. Morning is 7am.
-  var minutesOff = time.get().diff(moment().hour(7).minute(0), 'minutes');
-  var radius = self.$('#timeSelector').width() / 2;
-
-  currentRotation = new Big(minutesOff / 4);
-  self.$('#timeSelector').css('transform', 'rotate(' + currentRotation + 'deg)');
-  //set initial scroll height
-  setScrollHeight(self, radius);
-
-  //set up event listener
-  self.$('#scrollBox').scroll(function () {
-    var newRadius = self.$('#timeSelector').width() / 2;
-
-    //dial radius changed from screen resize.
-    if (newRadius !== radius) {
-      setScrollHeight(self, newRadius);
-      radius = newRadius;
-    }
-
-    //calculate degrees to move time dial
-    var newScroll = self.$('#scrollBox').scrollTop();
-    var scrollChange = newScroll - last;
-    var radians = new Big(Math.atan2(1, radius)).times(scrollChange);
-    var newRotation = radians.times(new Big(180).div(Math.PI));
-
-    last = newScroll;
-    currentRotation = currentRotation.plus(newRotation);
-    self.$('#timeSelector').css('transform', 'rotate(' + currentRotation.toString() + 'deg)');
-    //4 minutes per degree
-    time.set(time.get().add(newRotation.times(4).toString(), 'minutes'));
-  });
-};
-
 Template.weatherInfo.helpers({
   getTime: function () {
-    return time.get().calendar();
+    return moment(Session.get('time')).calendar();
   },
 
   getWeather: function () {
@@ -176,11 +115,7 @@ Template.avatar.helpers({
   }
 });
 
-Template.main.helpers({
-  getTemplate: function () {
-    return Session.equals('temperature', null) ? 'loading' : 'avatar';
-  }
-});
+
 
 Template.profiles.events({
   'click .profile': function (event) {

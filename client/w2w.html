@@ -8,22 +8,7 @@
 {{> main}}
 </body>
 
-<template name="main">
-  {{> profiles}}
-  <div class="navbar navbar-default navbar-fixed-top">
-    <button class="faButton visible-xs" data-toggle="offcanvas" data-recalc="false" data-target="#profile-sidebar"
-            data-canvas="body">
-      <i class="fa fa-bars fa-3x"></i>
-    </button>
-  </div>
 
-  <div class="container-fluid pane">
-    <!--Sets either the loading template or the avatar template, depending on if the data is ready-->
-    {{> Template.dynamic template=getTemplate}}
-    {{!-- > timeSelector --}}
-    {{> timeline}}
-  </div>
-</template>
 
 <template name="profiles">
   <nav id="profile-sidebar" class="navmenu navmenu-default navmenu-fixed-left offcanvas-xs" role="navigation">
@@ -67,15 +52,6 @@
       <!--Pants-->
       <div class="clothes" style="background: url('{{getPants}}') no-repeat; background-size: contain"></div>
     </div>
-  </div>
-</template>
-
-<template name="timeSelector">
-  <div class="col-md-2 col-md-push-2 col-sm-3 col-sm-push-2 col-xs-4 pane timeSelectorContainer">
-    <div id="scrollBox">
-      <div id="scrollContent"></div>
-    </div>
-    <div id="timeSelector"></div>
   </div>
 </template>
 
