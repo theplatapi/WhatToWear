@@ -1,15 +1,13 @@
 <template name="avatar">
   {{#if hasTemperature}}
-    <div class="col-md-8 col-md-push-2 col-sm-7 col-sm-push-2 col-xs-8 pane avatar-container">
-      <div class="weatherInfo visible-xs">
-        {{> React component=WeatherInfoContainer city=getCityReactive}}
-      </div>
-      <div id="avatar">
-        <!--Shirt-->
-        <div class="clothes" style="background: url('{{getShirt}}') no-repeat; background-size: contain"></div>
-        <!--Pants-->
-        <div class="clothes" style="background: url('{{getPants}}') no-repeat; background-size: contain"></div>
-      </div>
+    <div class="weatherInfo visible-xs">
+      {{> React component=WeatherInfoContainer city=getCityReactive}}
+    </div>
+    <div id="avatar">
+      <!--Shirt-->
+      <div class="clothes" style="background: url('{{getShirt}}') no-repeat; background-size: contain"></div>
+      <!--Pants-->
+      <div class="clothes" style="background: url('{{getPants}}') no-repeat; background-size: contain"></div>
     </div>
   {{else}}
     <div class="avatar-container">

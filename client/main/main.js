@@ -6,6 +6,7 @@ import {ReactiveVar} from 'meteor/reactive-var'
 import _ from 'lodash';
 
 import './main.html';
+import ClothingCardContainer from '/imports/ui/ClothingCard.jsx'
 
 Session.set('time', moment().valueOf());
 let city = new ReactiveVar(null);
@@ -46,5 +47,9 @@ Template.main.onCreated(function () {
 Template.main.helpers({
   getCityReactive: () => {
     return city;
+  },
+
+  ClothingCardContainer() {
+    return ClothingCardContainer;
   }
 });

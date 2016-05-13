@@ -1,7 +1,7 @@
 import {Template} from 'meteor/templating';
 import {Session} from 'meteor/session';
 import $ from 'jquery';
-import WeatherInfoContainer from '/imports/ui/WeatherInfo';
+import WeatherInfoContainer from '/imports/ui/WeatherInfo.jsx';
 
 import './profiles.html';
 

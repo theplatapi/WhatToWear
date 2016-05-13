@@ -10,8 +10,13 @@
   <div class="main-container">
     <div class="container-fluid pane">
       <!--Sets either the loading template or the avatar template, depending on if the data is ready-->
-      {{> avatar city=getCityReactive}}
-      {{> timeSelector}}
+      <div class="col-md-8 col-md-push-2 col-sm-7 col-sm-push-2 col-xs-8 pane avatar-container">
+        {{> avatar city=getCityReactive}}
+      </div>
+      {{!-- > timeSelector --}}
+      <div class="col-md-2 col-md-push-2 col-sm-3 col-sm-push-2 col-xs-4 pane timeSelectorContainer">
+        {{> React component=ClothingCardContainer}}
+      </div>
     </div>
   </div>
 </template>

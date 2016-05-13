@@ -29,7 +29,7 @@ export default WeatherInfoContainer = createContainer(params => {
   const weather = getWeather(_.get(forecast, 'forecasts'));
   
   return {
-    listLoading: handle.ready(),
+    loading: !handle.ready(),
     temperature: _.get(weather, 'temperature'),
     rain: _.get(weather, 'rain') || 0,
     city: params.city.get()
